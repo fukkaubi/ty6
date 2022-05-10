@@ -15,7 +15,7 @@ class NaiveBayesClassifier:
         }
 
     def fit(self, X, y) -> None:
-        """ Fit Naive Bayes classifier according to X, y."""
+        """Fit Naive Bayes classifier according to X, y."""
         words_list = []
         for sentence, lable in zip(X, y):
             for word in sentence.split():
@@ -46,7 +46,7 @@ class NaiveBayesClassifier:
             self.model["words"][word] = params
 
     def predict(self, X) -> str:
-        """ Perform classification on an array of test vectors X. """
+        """Perform classification on an array of test vectors X."""
         words = X.split()
         prob_labels = []
         for cur_label in self.model["labels"]:
@@ -61,14 +61,14 @@ class NaiveBayesClassifier:
         return answer
 
     def score(self, X_test, y_test) -> float:
-        """ Returns the mean accuracy on the given test data and labels. """
+        """Returns the mean accuracy on the given test data and labels."""
         prediction = []
         for one in X_test:
             prediction.append(self.predict(one))
         return sum(0 if prediction[k] != y_test[k] else 1 for k in range(len(X_test))) / len(X_test)
 
     def smoothing(self, word, cur_label) -> float:
-        """ Возвращает сглаженную вероятность со словом и лейблом. """
+        """Возвращает сглаженную вероятность со словом и лейблом."""
         nc = self.model["labels"][cur_label]["label_count"]
         nic = self.words_labels.get((word, cur_label), 0)
         counted_len = len(self.counted_words)
@@ -76,7 +76,7 @@ class NaiveBayesClassifier:
         return (nic + alpha) / (nc + alpha * counted_len)
 
     def count_words(self, cur_label) -> int:
-        """ Возвращает посчитанные слова с присвоенными лейблами. """
+        """Возвращает посчитанные слова с присвоенными лейблами."""
         count = 0
         for word, label_name in self.words_labels:
             if cur_label == label_name:
