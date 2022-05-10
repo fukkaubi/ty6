@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup  # type: ignore
 
 
 def extract_news(parser):
-    """ Extract news from a given web page """
+    """Extract news from a given web page"""
     news_list = []
     list_one = []
     list_two = []
@@ -57,13 +57,13 @@ def extract_news(parser):
 
 
 def extract_next_page(parser):
-    """ Extract next page URL """
+    """Extract next page URL"""
     next_page = parser.find("a", class_="morelink").get("href")
     return next_page
 
 
 def get_news(url, n_pages=1):
-    """ Collect news from a given web page """
+    """Collect news from a given web page"""
     news = []
     while n_pages:
         print("Collecting data from page: {}".format(url))
