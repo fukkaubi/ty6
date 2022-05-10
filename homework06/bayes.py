@@ -35,14 +35,11 @@ class NaiveBayesClassifier:
 
         for var_label in self.counted_labels:
             params = {
-                "label_count": self.count_words(var_label),
                 "probability": self.counted_labels[var_label] / len(y),
             }
             self.model["labels"][var_label] = params
         for word in self.counted_words:
             params = {}
-            for var_label in self.counted_labels:
-                params[var_label] = self.smoothing(word, var_label)
             self.model["words"][word] = params
 
     def predict(self, X) -> str:
